@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件的基本使用</title>
+</head>
+<body>
+    <!-- 
+        事件的基本使用:
+        1、使用v-on:xxx或@xxx綁定事件，其中xxx是事件名
+        2、事件的回調需要配置在methods對象中，最終會在vm上
+        3、methods中的配置的函數，不要用箭頭函數！否則this就不是vm了
+        4、methods中配置的函數，都是被Vue所管理的函數，this的指向是vm或組件實例對象
+        5、@click="demo"和@click="demo($event)"效果一致，但後者可以傳參
+     -->
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <h1>歡迎來到{{name}}學習</h1>
+        <button @click="showInfo1">點我提示信息1(不傳參)</button>
+        <button @click="showInfo2($event, 66)">點我提示信息2(傳參)</button>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        // 創建Vue實例
+        const vm = new Vue ({
+            el: '#root',
+            data: {
+                name: 'Allen'
+            },
+            methods: {
+                showInfo1(event) {
+                    // console.log(event.target.innerText);
+                    // console.log(this); // 此處的this是vm
+                    alert('同學你好!')
+                },
+                showInfo2(number, event) {
+                    console.log(event, number);
+                    // console.log(event.target.innerText);
+                    // console.log(this); // 此處的this是vm
+                    // alert('同學你好!!')
+                }
+            }
+        })
+     </script>
+</body>
+</html>
