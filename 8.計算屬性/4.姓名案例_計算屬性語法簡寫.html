@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名案例_計算屬性語法簡寫</title>
+</head>
+<body>
+    <!-- 
+        計算屬性:
+        1、定義: 要用的屬性不存在，要通過已有屬性計算得來
+        2、原理: 底層借助了Object.defineproperty方法提供的getter和setter
+        3、get函數什麼時候執行?
+            (1)、初次讀取時會執行一次
+            (2)、當依賴的數據發生改變時會被再次調用
+        4、優勢: 與methods實現相比，內部有緩存機制(複用)。效率更高，調試方便
+        5、備註:
+            1、計算屬性最終會出現在vm上，直接讀取使用即可
+            2、如果計算屬性要被修改，那必須寫set函數去響應修改，且set中要引起計算時依賴的數據發生改變
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        姓: <input type="text" v-model="firstName"> <br /><br />
+        名: <input type="text" v-model="lastName"> <br /><br />
+        全名: <span>{{fullName}}</span>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        const vm = new Vue ({
+            el: '#root',
+            data: {
+                firstName: '張',
+                lastName: '三'
+            },
+            computed: {
+                // 完整寫法
+                // fullName: {
+                //     get() {
+                //         console.log('get被調用了');
+                //         // console.log(this); // 此處的this是vm
+                //         return this.firstName + '-' + this.lastName
+                //     },
+                //     // set有什麼作用? 當fullName被修改時
+                //     set(value) {
+                //         console.log('set', value);
+                //         const arr = value.split('-')
+                //         this.firstName = arr[0]
+                //         this.lastName = arr[1]
+                //     }
+                // }
+                // 簡寫: 只考慮讀取，不考慮修改
+                fullName() {
+                    console.log('get被調用了');
+                    return this.firstName + '-' + this.lastName
+                }
+            },
+        })
+     </script>
+</body>
+</html>
