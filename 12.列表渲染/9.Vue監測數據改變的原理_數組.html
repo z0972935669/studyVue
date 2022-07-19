@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue監測數據改變的原理_數組</title>
+</head>
+<body>
+    <!-- 
+        
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <h1>學校信息</h1>
+        <h1>學校名稱: {{school.name}}</h1>
+        <h1>學校地址: {{school.address}}</h1>
+        <h1>校長是: {{school.leader}}</h1>
+        <hr>
+        <h1>學生信息</h1>
+        <button @click="addSex">添加一個性別屬性，默認值是男</button>
+        <h1>姓名: {{student.name}}</h1>
+        <h1 v-if="student.sex">性別: {{student.sex}}</h1>
+        <h1>年齡: 真實 {{student.age.rAge}}. 對外{{student.age.sAge}}</h1>
+        <h1>愛好</h1>
+        <ul>
+            <li v-for="(h, idx) in student.hobby" :key="idx">
+                {{h}}
+            </li>
+        </ul>
+        <h1>朋友們</h1>
+        <ul>
+            <li v-for="(f, idx) in student.friends" :key="idx">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        const vm = new Vue ({
+            el: '#root',
+            data: {
+                school: {
+                    name: 'Allen',
+                    address: '台北',
+                },
+                student: {
+                    name: 'Tom',
+                    // sex: '男',
+                    age: {
+                        rAge: 18,
+                        sAge: 40
+                    },
+                    hobby:['抽煙', '喝酒', '睡覺'],
+                    // hobby: {
+                    //     h1: '抽煙',
+                    //     h2: '喝酒',
+                    //     h3: '睡覺'
+                    // },
+                    friends: [
+                        {name: 'jerry', age: 35},
+                        {name: 'tony', age: 36}
+                    ]
+                },
+            },
+            methods: {
+                addSex() {
+                    // Vue.set: 只能加入對象，不能加到data裡
+                    // Vue.set(this.student, 'sex', '男')
+                    this.$set(this.student, 'sex', '男')
+                }
+            },
+        });
+     </script>
+</body>
+</html>
