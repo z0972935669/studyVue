@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收集表單數據</title>
+</head>
+<body>
+    <!-- 
+        收集表單數據:
+        若: <input type="text">，則v-model收集的是value值，用戶輸入的就是value值
+        若: <input type="radio">，則v-model收集的是value值，且要給標簽配置value值
+        若: <input type="checkbox">
+        1、沒有配置input的value屬性，那麼收集的就是checked(勾選 or 未勾選，是布爾值)
+        2、配置input的value屬性
+            (1)、v-model的初始值是非數組，那麼收集的就是checked(勾選 or 未勾選，是布爾值)
+            (2)、v-model的初始值是數組，那麼收集的就是value組成的數組
+        備註: v-model的三個修飾符
+        lazy: 失去焦點再收集數據
+        number: 輸入字符串轉為有效的數字
+        trim: 輸入首尾空格過濾
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <form @submit.prevent="demo">
+            帳號: <input type="text" v-model.trim="userInfo.account"><br><br>
+            密碼: <input type="password" v-model="userInfo.password"><br><br>
+            年齡: <input type="number" v-model.number="userInfo.age"><br><br>
+            性別:
+            男 <input type="radio" name="sex" v-model="userInfo.sex" value="male">
+            女 <input type="radio" name="sex" v-model="userInfo.sex" value="female"><br><br>
+            愛好:
+            學習 <input type="checkbox" v-model="userInfo.hobby" value="study">
+            打遊戲 <input type="checkbox" v-model="userInfo.hobby" value="game">
+            吃飯 <input type="checkbox" v-model="userInfo.hobby" value="eat"><br><br>
+            所屬校區
+            <select v-model="userInfo.city">
+                <option value="">請選擇校區</option>
+                <option value="Taipei">台北</option>
+                <option value="Taoyuan">桃園</option>
+                <option value="Hsinchu">新竹</option>
+                <option value="Kaohsiung">高雄</option>
+            </select>
+            <br><br>
+            其它信息:
+            <textarea v-model.lazy="userInfo.other"></textarea><br><br>
+            <input type="checkbox" v-model="userInfo.agree">閱讀並接受<a href="https://www.google.com">「用戶協議」</a><br><br>
+            <button>提交</button>
+        </form>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        new Vue ({
+            el: '#root',
+            data: {
+                userInfo: {
+                    account: '',
+                    password: '',
+                    age: 18,
+                    sex: 'female',
+                    hobby: [],
+                    city: 'Taipei',
+                    other: '',
+                    agree: ''
+                }
+            },
+            methods: {
+                demo() {
+                    console.log(JSON.stringify(this.userInfo));
+                }
+            },
+        });
+     </script>
+</body>
+</html>
