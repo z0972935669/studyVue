@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue監測數據改變的原理_數組</title>
+</head>
+<body>
+    <!-- 
+        Vue監視數據的原理
+        1、vue會監視data中所有層次的數據
+        2、如何監測對象中的數據
+        通過setter實現監視，且要在new Vue時就傳入要監測的數據
+            (1)、對象中後追加的屬性，Vue默認不做響應式處理
+            (2)、如需給後添加的屬性做響應式，請使用如下API
+                Vue.set(target, propertyName/index, value) or
+                vm.$set(target, propertyName/index, value)
+        3、如何監測數組中的數據?
+        通過包覆數組更新元素的方法實現，本質就是做了2件事
+            (1)、調用原生對應的方法對數組進行更新
+            (2)、重新解析模板，進而更新頁面
+        4、在Vue修改數組中的某個元素一定要用如下方法:
+            1、使用這些API: push(), pop(), shift(), unshift(), splice(), sort(), reverse()
+            2、Vue.set() or vm.$set()
+        特別注意: Vue.set() 和 vm.$set() 不能給vm或vm的根數據對象添加屬性!!
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <h1>學生信息</h1>
+
+        <button @click="student.age++">年齡+1歲</button><br>
+        <button @click="addSex">添加性別屬性，默認值:男</button><br>
+        <button @click="student.sex = '未知'">修改性別</button><br>
+        <button @click="addFriend">在列表首位加一個朋友</button><br>
+        <button @click="updateFirstFriendName">修改第一個朋友的名字為：張三</button><br>
+        <button @click="addHobby">添加一個愛好</button><br>
+        <button @click="updateHobby">修改第一個愛好為：開車</button><br>
+        <button @click="removeSmoke">過濾掉中的抽煙</button><br>
+
+        <h1>姓名: {{student.name}}</h1>
+        <h1>年齡: {{student.age}}</h1>
+        <h1 v-if="student.sex">性別: {{student.sex}}</h1>
+        <h1>愛好</h1>
+        <ul>
+            <li v-for="(h, idx) in student.hobby" :key="idx">
+                {{h}}
+            </li>
+        </ul>
+        <h1>朋友們</h1>
+        <ul>
+            <li v-for="(f, idx) in student.friends" :key="idx">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        const vm = new Vue ({
+            el: '#root',
+            data: {
+                student: {
+                    name: 'Tom',
+                    age: 18,
+                    hobby:['抽煙', '喝酒', '睡覺'],
+                    friends: [
+                        {name: 'jerry', age: 35},
+                        {name: 'tony', age: 36}
+                    ]
+                },
+            },
+            methods: {
+                addSex() {
+                    Vue.set(this.student, 'sex', '男');
+                    // this.$set(this.student, 'sex', '男');
+                },
+                addFriend() {
+                    this.student.friends.unshift({name: 'Jack', age: 70})
+                },
+                updateFirstFriendName() {
+                    this.student.friends[0].name = '張三'
+                    this.student.friends[0].age = 5
+                },
+                addHobby() {
+                    this.student.hobby.push('學習');
+                },
+                updateHobby() {
+                    // this.student.hobby.splice(0,1,'開車');
+                    // Vue.set(this.student.hobby, 0, '開車');
+                    this.$set(this.student.hobby, 0, '開車');
+                },
+                removeSmoke() {
+                    this.student.hobby = this.student.hobby.filter((h) => {
+                        return h !== '抽煙'
+                    })
+                }   
+            },
+        });
+     </script>
+</body>
+</html>
