@@ -44,7 +44,8 @@
                     // this.persons[0].name = '馬老師' // ok
                     // this.persons[0].age = 50 // ok
                     // this.persons[0].sex = '男' // ok
-                    this.persons[0] = { id: '001', name: '馬老師', age: 50, sex: '男' } //開發人員工具沒改，但實際上已經改了，ex: vm.persons[0].name
+                    // this.persons[0] = { id: '001', name: '馬老師', age: 50, sex: '男' } //開發人員工具沒改，但實際上已經改了，ex: vm.persons[0].name
+                    this.persons.splice(0,1,{ id: '001', name: '馬老師', age: 50, sex: '男' });
                 }
             },
         });
