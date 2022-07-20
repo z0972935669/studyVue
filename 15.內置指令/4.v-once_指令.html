@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-once_指令</title>
+</head>
+<body>
+    <!-- 
+        v-once指令:
+        1、v-once所在節點在初次動態渲染後，就視為靜態內容了
+        2、以後數據的改變不會引起v-once所在結構的更新，可以用於優化性能
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <h1 v-once>初始化的n值是:{{n}}</h1>
+        <h1>當前的n值是:{{n}}</h1>
+        <button @click="n++">點我n+1</button>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        new Vue ({
+            el: '#root',
+            data: {
+                n: 1
+            }
+        });
+     </script>
+</body>
+</html>
