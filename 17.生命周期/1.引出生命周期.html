@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引出生命周期</title>
+</head>
+
+<body>
+    <!-- 
+        生命周期:
+        1、又名: 生命周期回調函數、生命周期函數、生命周期鈎子
+        2、是什麼: Vue在關鍵時刻幫我們調用的一些特殊名稱的函數
+        3、生命周期函數的名字不可更改，但函數的具體內容是程序員根據需求編寫的
+        4、生命周期函數中的this指向是vm或組件實例對象
+     -->
+
+    <!-- 準備好一個容器 -->
+    <div id="root">
+        <h1 v-if="a">你好啊</h1>
+        <h1 :style="{opacity}">歡迎學習Vue</h1>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        new Vue({
+            el: '#root',
+            data: {
+                a: false,
+                opacity: 1
+            },
+            methods: {
+
+            },
+            // Vue完成模板的解析並把初始的真實DOM元素放入頁面後(完成掛載)調用mounted
+            mounted() {
+                console.log('mounted', this);
+                setInterval(() => {
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0) {
+                        this.opacity = 1
+                    }
+                }, 16);
+            },
+        });
+
+        // 通過外部的定時器實現 (不推薦)
+        // setInterval(() => {
+        //     vm.opacity -= 0.01
+        //     if (vm.opacity <= 0) {
+        //         vm.opacity = 1
+        //     }
+        // }, 16);
+    </script>
+</body>
+
+</html>
