@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>總結生命周期</title>
+</head>
+
+<body>
+    <!-- 
+        常用的生命周期鈎子
+        1、mounted: 發送ajax請求，啟動定時器，綁定自定義事件，訂閱消息等「初始化操作」
+        2、beforeDestroy: 請除定時器，解綁自定義事件，取消訂閱消息等「收尾工作」
+
+        關於銷毀Vue實例
+        1、銷毀後借助Vue開發者工具看不到任何信息
+        2、銷毀後自定義事件會失效，但原生DOM事件依然有效
+        3、一般不會再beforeDestroy操作數據，因為即便操作數據，也不會再觸發更新流程了
+     -->
+
+    <!-- 準備好一個容器 -->
+    <div id="root">
+        <h1 :style="{opacity}">歡迎學習Vue</h1>
+        <button @click="stop">點我停止變換</button>
+        <button @click="opacity = 1">透明度設置為1</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        new Vue({
+            el: '#root',
+            data: {
+                a: false,
+                opacity: 1
+            },
+            methods: {
+                stop() {
+                    this.$destroy()
+                }
+            },
+            // Vue完成模板的解析並把初始的真實DOM元素放入頁面後(完成掛載)調用mounted
+            mounted() {
+                console.log('mounted', this);
+                this.timer = setInterval(() => {
+                    console.log('setInterval');
+                    this.opacity -= 0.01
+                    if (this.opacity <= 0) {
+                        this.opacity = 1
+                    }
+                }, 16);
+            },
+            beforeDestroy() {
+                console.log('vm掛了');
+                clearInterval(this.timer);
+            },
+        });
+    </script>
+</body>
+
+</html>
