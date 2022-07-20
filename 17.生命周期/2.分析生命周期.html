@@ -15,6 +15,7 @@
      <div id="root" :x="n">
         <h1>當前的n值是, {{n}}</h1>
         <button @click="add">點我n+1</button>
+        <button @click="bye">點我銷毀vm</button>
      </div>
 
      <script src="../js/vue.js"></script>
@@ -34,7 +35,17 @@
             },
             methods: {
                 add() {
+                    console.log('add');
                     this.n++
+                },
+                bye() {
+                    console.log('bye');
+                    this.$destroy()
+                }
+            },
+            watch: {
+                n() {
+                    console.log('n變了');
                 }
             },
             beforeCreate() {
@@ -48,6 +59,18 @@
             },
             mounted() {
                 console.log('mounted');
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate');
+            },
+            updated() {
+                console.log('updated');
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy');
+            },
+            destroyed() {
+                console.log('destroyed');
             },
         });
      </script>
