@@ -10,12 +10,39 @@
     <!-- 
         需求1: 定義一個v-big指令，和v-text功能類似，但會把綁定的數值放大10倍
         需求2: 定義一個v-fbind指令，和v-bind功能類似，但可以讓其所綁定的input元素默認獲取焦點
+
+        自定義指令總結:
+        1、定義語法:
+        (1)、局部指令:
+            new Vue({
+                directives: {指令名: 配置對象}
+            })
+
+            或
+
+            new Vue({
+                directives(指令名, 回調函數) {}
+            })
+        (2)、全局指令:
+            Vue.directive(指令名, 配置對象)
+
+            或
+
+            Vue.directive(指令名, 回調函數)
+        2、配置對象中常用的3個回調:
+        (1)、bind: 指令與元素成功綁定時調用
+        (2)、inserted: 指令所在元素被插入頁面時調用
+        (3)、update: 指令所在模板結構被重新解析時調用
+        3、備註:
+        (1)、指令定義時不加v-，但使用時要加v-
+        (2)、指令名如果是多個單詞，要使用kebab-case命名方式，不要用camelCase命名
      -->
 
      <!-- 準備好一個容器 -->
      <div id="root">
         <h2>{{name}}</h2>
         <h2>當前的n值是: <span v-text="n"></span></h2>
+        <h2>放大10倍後的n值是: <span v-big-number="n"></span></h2>
         <h2>放大10倍後的n值是: <span v-big="n"></span></h2>
         <button @click="n++">點我n+1</button>
         <hr>
@@ -25,6 +52,29 @@
      <script src="../js/vue.js"></script>
      <script>
         Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+        // 定義全局指令
+        // Vue.directive('find', {
+        //     // 指令與元素成功綁定時(一上來)
+        //     bind(element,binding) {
+        //         element.value = binding.value
+        //     },
+        //     // 指令所在元素被插入頁面時
+        //     inserted(element,binding) {
+        //         element.focus()
+        //     },
+        //     // 指令所在的模板被重新解析時
+        //     update(element,binding) {
+        //         element.value = binding.value
+        //         element.focus()
+        //     }
+        // })
+        // Vue.directive('big', function(element,binding) {
+        //     console.log('big', this); // 此處的this是指window
+        //     element.innerText = binding.value * 10
+        //     // console.log(element,binding.value);
+        //     // console.dir(element);
+        //     // console.log(element instanceof HTMLElement);
+        // })
 
         new Vue ({
             el: '#root',
@@ -37,6 +87,13 @@
                 // 1.指令與元素成功綁定時 (一上來)
                 // 2.指令所在的模板被重新解析時
                 big(element,binding) {
+                    console.log('big', this); // 此處的this是指window
+                    element.innerText = binding.value * 10
+                    // console.log(element,binding.value);
+                    // console.dir(element);
+                    // console.log(element instanceof HTMLElement);
+                },
+                'big-number': function(element,binding) {
                     element.innerText = binding.value * 10
                     // console.log(element,binding.value);
                     // console.dir(element);
