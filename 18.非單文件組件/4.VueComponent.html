@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueComponent</title>
+</head>
+<body>
+    <!-- 
+        關於VueComponent:
+        1、school組件本質是一個名為VueComponent的構造函數，且不是程序員定義的，是Vue.extend生成的
+        2、我們只需要寫<school/>或<school></school>，Vue解析時會幫我們創建school組件的實例對象，即Vue幫我們執行的: new VueComponent(options)
+        3、特別注意: 每次調用Vue.extend，返回的都是一個全新的VueComponent
+        4、關於this指向:
+            (1)、組件配置中:
+            data函數， methods中的函數，watch中的函數，computed中的函數 它們的this均是「VueComponent實例對象」
+            (2)、new Vue(options)配置中
+            data函數、method中的函數、watch中的函數、computed中的函數 它們的this均是「Vue實例對象」
+        5、VueComponent的實例對象，以後簡稱vc(也可稱之為: 組件實例對象)
+            Vue的實例對象，以後簡稱vm
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <school></school>
+        <hello></hello>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        // 定義school組件
+        // 它的本質是VueComponent的構造函數
+        const school = Vue.extend({
+            name: 'school',
+            template: `
+                <div>
+                    <h2>學校名稱: {{name}}</h2>    
+                    <h2>學校地址: {{address}}</h2>
+                    <button @click="showName">點我提示學校名</button>
+                </div>
+            `,
+            data() {
+                return {
+                    name: '交大',
+                    address: '新竹'
+                }
+            },
+            methods: {
+                showName() {
+                    alert(this.name)
+                    // console.log('showName', this);
+                }
+            }
+        })
+        
+        const test = Vue.extend({
+            template:`<span>Allen</span>`
+        })
+        
+        // 定義hello組件
+        const hello = Vue.extend({
+            template:`
+                <div>
+                    <h2>{{msg}}</h2>
+                    <test></test>    
+                </div>
+            `,
+            data() {
+                return {
+                    msg: '你好啊!'
+                }
+            },
+            components: {
+                test
+            }
+        })
+        
+        // console.log('@',school);
+        // console.log('#',hello);
+
+        // 創建vm
+        const vm = new Vue ({
+            el: '#root',
+            components: {
+                school,
+                hello
+            }
+        });
+     </script>
+</body>
+</html>
