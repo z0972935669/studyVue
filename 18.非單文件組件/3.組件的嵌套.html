@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>組件的嵌套</title>
+</head>
+<body>
+    <!-- 
+        
+     -->
+
+     <!-- 準備好一個容器 -->
+     <div id="root">
+        <app></app>
+     </div>
+
+     <script src="../js/vue.js"></script>
+     <script>
+        Vue.config.productionTip = false // 阻止vue在啟動時生成生產提示
+
+        // 定義student組件
+        const student = Vue.extend({
+            name: 'student',
+            template: `
+                <div>
+                    <h2>學生姓名: {{name}}</h2>    
+                    <h2>學生年齡: {{age}}</h2>    
+                </div>
+            `,
+            data() {
+                return {
+                    name: 'Allen',
+                    age: 18
+                }
+            }
+        })
+
+        // 定義school組件
+        const school = Vue.extend({
+            name: 'school',
+            template: `
+                <div>
+                    <h2>學校名稱: {{name}}</h2>    
+                    <h2>學校地址: {{address}}</h2>
+                    <student></student>    
+                </div>
+            `,
+            data() {
+                return {
+                    name: '交大',
+                    address: '新竹'
+                }
+            },
+            // 註冊組件(局部)
+            components: {
+                student
+            }
+        })
+
+        // 定義hello組件
+        const hello = Vue.extend({
+            template: `<h1>{{msg}}</h1>`,
+            data() {
+                return {
+                    msg: '歡迎學習Vue!'
+                }
+            }
+        })
+
+        // 定義app組件
+        const app = Vue.extend({
+            template:`
+                <div>
+                    <hello></hello>
+                    <school></school>
+                </div>
+            `,
+            components: {
+                school,
+                hello
+            }
+        })
+
+        // 創建vm
+        new Vue ({
+            el: '#root',
+            components: {
+                app
+            }
+        });
+     </script>
+</body>
+</html>
