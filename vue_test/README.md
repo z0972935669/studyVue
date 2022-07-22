@@ -37,3 +37,28 @@
     3、使用方式:
         打標識: <h1 ref="xxx">.....</h1>或<School ref="xxx"></School>
         獲取: this.$refs.xxx
+
+## 配置項props
+    功能: 讓組件接收外部傳過來的數據
+    (1)、傳遞數據:
+        <Demo name="xxx"/>
+    (2)、接收數據:
+        第一種方式(只接收):
+        props:['name']
+
+        第二種方式(限制類型):
+        props: {
+            name: String
+        }
+
+        第三種方式 (限制類型、限制必要性、指定默認值):
+        props: {
+            name: {
+                type: String, //類型
+                required: true, //必要性
+                default: '老王' //默認值
+            }
+        }
+    備註:props是只讀的，Vue底層會監測你對props的修改，如果進行了修改，就會發出警告
+        若業務需求確實需要修改，那麼請複制props的內容到data中一份，然後去修改data中
+        的數據
