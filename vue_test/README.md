@@ -30,3 +30,10 @@
 ## vue.config.js配置文件
 > 使用vue inspect > output.js 可以查看到Vue腳手架的默認配置
 > 使用vue.config.js 可以對腳手架進行個性化定制，詳情見: https://cli.vuejs.org/zh
+
+## ref屬性
+    1、被用來給元素或子組件註冊引用信息(id的替代者)
+    2、應用在html標籤上獲取的是真實DOM元素，應用在組件標籤上是組件實例對象(vc)
+    3、使用方式:
+        打標識: <h1 ref="xxx">.....</h1>或<School ref="xxx"></School>
+        獲取: this.$refs.xxx
