@@ -3,7 +3,7 @@
     <label for="">
       <input type="checkbox" />
     </label>
-    <span> <span>已完成0</span> / 全部2 </span>
+    <span> <span>已完成{{doneTotal}}</span> / 全部{{todos.length}} </span>
     <button class="btn btn-danger">清除已完成任務</button>
   </div>
 </template>
@@ -11,6 +11,20 @@
 <script>
 export default {
   name: "MyFooter",
+  props:['todos'],
+  computed: {
+    doneTotal() {
+        // 方法1
+        // let i = 0;
+        // this.todos.forEach(todo => {
+        //     if (todo.done) i++
+        // }); 
+        // return i
+
+        // 方法2
+        return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0) ,0)
+    }
+  }
 };
 </script>
 

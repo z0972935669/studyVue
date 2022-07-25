@@ -1,11 +1,11 @@
 <template>
   <div id="root">
     <div class="todo-container">
-        <div class="todo-wrap">
-            <MyHeader :addTodo="addTodo" />
-            <MyList :todos="todos" :checkTodo="checkTodo" />
-            <MyFooter />
-        </div>
+      <div class="todo-wrap">
+        <MyHeader :addTodo="addTodo" />
+        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+        <MyFooter :todos="todos" />
+      </div>
     </div>
   </div>
 </template>
@@ -24,24 +24,28 @@ export default {
   },
   data() {
     return {
-        todos:[
-            {id: '001', title:'吃飯', done: true},
-            {id: '002', title:'睡覺', done: false},
-            {id: '003', title:'開車', done: true}
-        ]
-    }
+      todos: [
+        { id: "001", title: "吃飯", done: true },
+        { id: "002", title: "睡覺", done: false },
+        { id: "003", title: "開車", done: true },
+      ],
+    };
   },
   methods: {
     // 添加一個todo
     addTodo(x) {
-      this.todos.unshift(x)
+      this.todos.unshift(x);
     },
     // 勾選or取消勾選一個todo
     checkTodo(id) {
       this.todos.forEach((todo) => {
-        if(todo.id === id) todo.done = !todo.done
-      })
-    }
+        if (todo.id === id) todo.done = !todo.done;
+      });
+    },
+    // 刪除一個todo
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
+    },
   },
 };
 </script>
