@@ -12,15 +12,7 @@ export default {
   components: {
     MyItem,
   },
-  data() {
-    return {
-        todos:[
-            {id: '001', title:'吃飯', done: true},
-            {id: '002', title:'睡覺', done: false},
-            {id: '003', title:'開車', done: true}
-        ]
-    }
-  },
+  props:['todos']
 };
 </script>
 

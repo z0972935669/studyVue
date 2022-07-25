@@ -104,3 +104,6 @@
         npm view sass-loader versions
     - 安裝sass-loader指定版本
         npm i sass-loader@7
+
+## nanoid
+    npm i nanoid
