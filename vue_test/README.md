@@ -75,3 +75,24 @@
         第二步使用混入，例如: 
             (1)、全局混入: Vue.mixin(xxx)
             (2)、局部混入: mixins:['xxx']
+
+## 插件
+    功能: 用於增強Vue
+    本質: 包含install方法的一個對象，install的第一個參數是Vue，第二個以後的參數是插件使用者傳遞的數據
+    定義插件:
+    對象.install = function (Vue, options) {
+        // 1. 添加全局過濾器
+        Vue.filter(....)
+
+        // 2. 添加全局指令
+        Vue.directive(....)
+
+        // 3. 配置全局混入(合)
+        Vue.mixin(....)
+
+        // 4. 添加實例方法
+        Vue.prototype.$myMethod = function () {....}
+        Vue.prototype.$myProperty = xxxx
+    }
+    使用插件: Vue.use()
+
