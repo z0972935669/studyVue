@@ -96,3 +96,11 @@
     }
     使用插件: Vue.use()
 
+## scoped樣式
+    作用: 讓樣式在局部生效，防止沖突
+    寫法: <style scoped>
+    - 查看webpack的版本有哪些
+        npm view webpack versions
+        npm view sass-loader versions
+    - 安裝sass-loader指定版本
+        npm i sass-loader@7
