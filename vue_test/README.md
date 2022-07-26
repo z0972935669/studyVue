@@ -155,3 +155,30 @@
         3、xxxxxStorage.getIem(xxx)如果xxx對應的value獲取不到，那麼getItem的返回值是null
 
         4、JSON.parse(null)的結果依然是null
+
+## 組件的自定義事件
+    1、一種組件間通信的方式，適用於: 子組件 => 父組件
+
+    2、使用場景: A是父組件，B是子組件，B想給A傳數據，那麼就要在A中給B綁定自定義事件(事件的回調在A中)
+
+    3、綁定自定義事件:
+
+        1、第一種方式，在父組件中: <Demo @atguigu="test"> 或 <Demo v-on:atguigu="test">
+
+        2、第二種方式，在父組件中:
+
+            <Demo ref="demo"/>
+            .....
+            mounted() {
+                this.$refs.xxx.$on('atguigu', this.test)
+            }
+
+        3、若想讓自定義事件只能觸發一次，可以使用once修飾符，或$once方法
+
+    4、觸發自定義事件: this.$emit('atguigu', 數據)
+
+    5、解綁自定義事件: this.$off('atguigu')
+
+    6、組件上也可以綁定原生DOM事件，需要使用native修飾符
+
+    7、注意: 通過this.$refs.xxx.$on('atguigu'，回調) 綁定自定義事件時，回調要麼配置在methods中，要麼用箭頭函數，否則this指向會出問題
