@@ -182,3 +182,29 @@
     6、組件上也可以綁定原生DOM事件，需要使用native修飾符
 
     7、注意: 通過this.$refs.xxx.$on('atguigu'，回調) 綁定自定義事件時，回調要麼配置在methods中，要麼用箭頭函數，否則this指向會出問題
+
+## 全局事件總線 (GlobalEventBus)
+    1、一種組件間通信的方式，適用於任意組間通信
+
+    2、安裝全局事件總線:
+        new Vue({
+            ......
+            beforeCreate() {
+                Vue.prototype.$bus = this // 安裝全局事件總線，$bus就是當前應用的vm
+            },
+            .....
+        })
+
+    3、使用事件總線:
+        1、接收數據，A組件想接收數據，則在A組件中給$bus綁定自定義事件，事件的回調留在A組件自身
+            methods() {
+                demo(data){.....}
+            }
+            ......
+            mounted() {
+                this.$bus.$on('xxxx', this.demo)
+            }
+        
+        2、提供數據: this.$bus.$emit('xxxx',數據)
+
+    4、最好在beforeDestroy鉤子中，用$off去解綁當前組件所用到的事件
