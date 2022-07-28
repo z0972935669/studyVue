@@ -234,3 +234,25 @@
         4、提供數據: pubsub.publish('xxx', this.demo)
 
         5、最好在beforeDestroy鉤子中，用pubsub.unsubscribe(pid)去<span style="color: red">取消訂閱</span>
+
+## Vue封裝的過度與動畫
+    1、作用: 在插入、更新或移除DOM元素時，在合適的時候給元素添加樣式類名
+
+    2、圖表(參考過渡的類名圖片): https://cn.vuejs.org/v2/guide/transitions.html
+
+    3、寫法
+        1、準備好樣式: 
+            ．元素進入的樣式:
+                1、v-enter: 進入的起點
+                2、v-enter-active: 進入過程中
+                3、v-enter-to: 進入的終點
+            ．元素離開的樣式:
+                1、v-leave: 離開的起點
+                2、v-leave-active: 離開過程中
+                3、v-leave-to: 離開的終點
+
+        2、使用<transition>包裏要過渡的元素，並配置name屬性:
+            <transition name="hello">
+                <h1 v-show="isShow">你好啊!</h1>
+            </transition>
+        3、備註: 若有多個元素需要過度，則需要使用: <transition-group>，且每個元素都要指定key值
