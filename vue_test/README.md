@@ -256,3 +256,47 @@
                 <h1 v-show="isShow">你好啊!</h1>
             </transition>
         3、備註: 若有多個元素需要過度，則需要使用: <transition-group>，且每個元素都要指定key值
+
+## Vue腳手架配置代理
+
+### 方法一
+    在Vue.config.js中添加如下配置:
+
+    devServer: {
+        proxy: 'http://localhost:5000'
+    }
+
+    說明:
+
+        1、優點: 配置簡單，請求資源時直接發給前端(8080)即可
+        2、缺點: 不能配置多個代理，不能靈活的控制請求是否走代理
+        3、工作方式: 若按照上述配置代理，當請求了前端不存在的資源時，那麼該請求會轉發給服務器(優先匹配前端資源)
+
+### 方法二
+    編寫vue.config.js配置具體代理規則:
+
+    module.exports = {
+        devServer: {
+        proxy: {
+        '/api1': {// 匹配所有以 '/api1'開頭的請求路徑
+            target: 'http://localhost:5000',// 代理目標的基礎路徑
+            changeOrigin: true,
+            pathRewrite: {'^/api1': ''}
+        },
+        '/api2': {// 匹配所有以 '/api2'開頭的請求路徑
+            target: 'http://localhost:5001',// 代理目標的基礎路徑
+            changeOrigin: true,
+            pathRewrite: {'^/api2': ''}
+        }
+        }
+    }
+    }
+    /*
+    changeOrigin設置為true時，服務器收到的請求頭中的host為：localhost:5000
+    changeOrigin設置為false時，服務器收到的請求中的host為：localhost:8080
+    changeOrigin默認值為true
+    */
+
+    說明:
+        1、優點: 可以配置夕個代理，且可以靈活的控制請求是否走代理
+        2、缺點: 配置略微繁鎖，請求資源時必須加前綴
