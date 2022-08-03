@@ -546,3 +546,29 @@
        ...mapGetters(['bigSum'])
    },
    ```
+
+3. <strong>mapActions方法：</strong>用於幫助我們生成與```actions```對話的方法，即：包含```$store.dispatch(xxx)```的函數
+
+   ```js
+   methods:{
+       //靠mapActions生成：incrementOdd、incrementWait（對象形式）
+       ...mapActions({incrementOdd:'jiaOdd',incrementWait:'jiaWait'})
+   
+       //靠mapActions生成：incrementOdd、incrementWait（數組形式）
+       ...mapActions(['jiaOdd','jiaWait'])
+   }
+   ```
+
+4. <strong>mapMutations方法：</strong>用於幫助我們生成與```mutations```對話的方法，即：包含```$store.commit(xxx)```的函數
+
+   ```js
+   methods:{
+       //靠mapActions生成：increment、decrement（對象形式）
+       ...mapMutations({increment:'JIA',decrement:'JIAN'}),
+       
+       //靠mapMutations生成：JIA、JIAN（對象形式）
+       ...mapMutations(['JIA','JIAN']),
+   }
+   ```
+
+> 備註：mapActions與mapMutations使用時，若需要傳遞參數需要：在模板中綁定事件時傳遞好參數，否則參數是事件對象。
