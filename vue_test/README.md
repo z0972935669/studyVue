@@ -642,3 +642,60 @@
    //方式二：借助mapMutations：
    ...mapMutations('countAbout',{increment:'JIA',decrement:'JIAN'}),
    ```
+
+## 路由
+
+1. 理解： 一個路由（route）就是一組映射關係（key - value），多個路由需要路由器（router）進行管理。
+2. 前端路由：key是路徑，value是組件。
+
+### 1.基本使用
+
+1. 安裝vue-router，命令：```npm i vue-router```
+
+2. 應用插件：```Vue.use(VueRouter)```
+
+3. 編寫router配置項:
+
+   ```js
+   //引入VueRouter
+   import VueRouter from 'vue-router'
+   //引入Luyou 組件
+   import About from '../components/About'
+   import Home from '../components/Home'
+   
+   //創建router實例對象，去管理一組一組的路由規則
+   const router = new VueRouter({
+   	routes:[
+   		{
+   			path:'/about',
+   			component:About
+   		},
+   		{
+   			path:'/home',
+   			component:Home
+   		}
+   	]
+   })
+   
+   //暴露router
+   export default router
+   ```
+
+4. 實現切換（active-class可配置高亮樣式）
+
+   ```vue
+   <router-link active-class="active" to="/about">About</router-link>
+   ```
+
+5. 指定展示位置
+
+   ```vue
+   <router-view></router-view>
+   ```
+
+### 2.幾個注意點
+
+1. 路由組件通常存放在```pages```文件夾，一般組件通常存放在```components```文件夾。
+2. 通過切換，“隱藏”了的路由組件，默認是被銷毀掉的，需要的時候再去掛載。
+3. 每個組件都有自己的```$route```屬性，裡面存儲著自己的路由信息。
+4. 整個應用只有一個router，可以通過組件的```$router```屬性獲取到。
