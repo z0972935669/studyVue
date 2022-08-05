@@ -894,3 +894,31 @@
 1. 作用：控制路由跳轉時操作瀏覽器歷史記錄的模式
 2. 瀏覽器的歷史記錄有兩種寫入方式：分別為```push```和```replace```，```push```是追加歷史記錄，```replace```是替換當前記錄。路由跳轉時候默認為```push```
 3. 如何開啟```replace```模式：```<router-link replace .......>News</router-link>```
+
+### 9.編程式路由導航
+
+1. 作用：不借助```<router-link> ```實現路由跳轉，讓路由跳轉更加靈活
+
+2. 具體編碼：
+
+   ```js
+   //$router的兩個API
+   this.$router.push({
+   	name:'xiangqing',
+   		params:{
+   			id:xxx,
+   			title:xxx
+   		}
+   })
+   
+   this.$router.replace({
+   	name:'xiangqing',
+   		params:{
+   			id:xxx,
+   			title:xxx
+   		}
+   })
+   this.$router.forward() //前進
+   this.$router.back() //後退
+   this.$router.go() //可前進也可後退
+   ```
