@@ -888,3 +888,9 @@
 	}
 }
 ```
+
+### 8.```<router-link>```的replace屬性
+
+1. 作用：控制路由跳轉時操作瀏覽器歷史記錄的模式
+2. 瀏覽器的歷史記錄有兩種寫入方式：分別為```push```和```replace```，```push```是追加歷史記錄，```replace```是替換當前記錄。路由跳轉時候默認為```push```
+3. 如何開啟```replace```模式：```<router-link replace .......>News</router-link>```
