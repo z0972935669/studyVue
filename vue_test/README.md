@@ -862,3 +862,29 @@
    $route.params.id
    $route.params.title
    ```
+
+### 7.路由的props配置
+
+​	作用：讓路由組件更方便的收到參數
+
+```js
+{
+	name:'xiangqing',
+	path:'detail/:id',
+	component:Detail,
+
+	//第一種寫法：props值為對象，該對像中所有的key-value的組合最終都會通過props傳給Detail組件
+	// props:{a:900}
+
+	//第二種寫法：props值為布爾值，布爾值為true，則把路由收到的所有params參數通過props傳給Detail組件
+	// props:true
+	
+	//第三種寫法：props值為函數，該函數返回的對像中每一組key-value都會通過props傳給Detail組件
+	props(route){
+		return {
+			id:route.query.id,
+			title:route.query.title
+		}
+	}
+}
+```
