@@ -732,3 +732,30 @@
    ```vue
    <router-link to="/home/news">News</router-link>
    ```
+
+### 4.路由的query參數
+
+1. 傳遞參數
+
+   ```vue
+   <!-- 跳轉並攜帶query參數，to的字符串寫法 -->
+   <router-link :to="/home/message/detail?id=666&title=你好">跳轉</router-link>
+   				
+   <!-- 跳轉並攜帶query參數，to的對象寫法 -->
+   <router-link 
+   	:to="{
+   		path:'/home/message/detail',
+   		query:{
+   		   id:666,
+               title:'你好'
+   		}
+   	}"
+   >跳轉</router-link>
+   ```
+
+2. 接收參數：
+
+   ```js
+   $route.query.id
+   $route.query.title
+   ```
