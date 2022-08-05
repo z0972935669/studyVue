@@ -922,3 +922,15 @@
    this.$router.back() //後退
    this.$router.go() //可前進也可後退
    ```
+
+### 10.緩存路由組件
+
+1. 作用：讓不展示的路由組件保持掛載，不被銷毀。
+
+2. 具體編碼：
+
+   ```vue
+   <keep-alive include="News"> 
+       <router-view></router-view>
+   </keep-alive>
+   ```
