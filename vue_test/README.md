@@ -808,3 +808,57 @@
       	}"
       >跳轉</router-link>
       ```
+
+### 6.路由的params參數
+
+1. 配置路由，聲明接收params參數
+
+   ```js
+   {
+   	path:'/home',
+   	component:Home,
+   	children:[
+   		{
+   			path:'news',
+   			component:News
+   		},
+   		{
+   			component:Message,
+   			children:[
+   				{
+   					name:'xiangqing',
+   					path:'detail/:id/:title', //使用佔位符聲明接收params參數
+   					component:Detail
+   				}
+   			]
+   		}
+   	]
+   }
+   ```
+
+2. 傳遞參數
+
+   ```vue
+   <!-- 跳轉並攜帶params參數，to的字符串寫法 -->
+   <router-link :to="/home/message/detail/666/你好">跳轉</router-link>
+   				
+   <!-- 跳轉並攜帶params參數，to的對象寫法 -->
+   <router-link 
+   	:to="{
+   		name:'xiangqing',
+   		params:{
+   		   id:666,
+               title:'你好'
+   		}
+   	}"
+   >跳轉</router-link>
+   ```
+
+   > 特別注意：路由攜帶params參數時，若使用to的對象寫法，則不能使用path配置項，必須使用name配置！
+
+3. 接收參數：
+
+   ```js
+   $route.params.id
+   $route.params.title
+   ```
