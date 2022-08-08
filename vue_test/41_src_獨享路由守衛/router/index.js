@@ -29,7 +29,7 @@ const router = new VueRouter({
                     meta: { isAuth: true, title: '新聞' },
                     // 獨享路由守衛:只有前置，沒有後置
                     beforeEnter: (to, from, next) => {
-                        console.log('前置路由守衛', to, from);
+                        console.log('獨享路由守衛', to, from);
                         if (to.meta.isAuth) { //判斷是否需要權限
                             if (localStorage.getItem('school') === 'atguigu') {
                                 next()
