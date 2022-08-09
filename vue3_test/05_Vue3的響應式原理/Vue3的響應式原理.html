@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 源數據
+        let person = {
+            name: '張三',
+            age: 18
+        }
+
+        // 模擬Vue2中實現響應式
+        // #region
+        // let p = {}
+        // Object.defineProperty(p, 'name', {
+        //     configurable: true,
+        //     get() { //有人有讀取name時調用
+        //         return person.name
+        //     },
+        //     set(value) { //有人修改name時調用
+        //         console.log('有人修改了name屬性，我發現了，我要去更新界面！');
+        //         person.name = value
+        //     }
+        // })
+        // Object.defineProperty(p, 'age', {
+        //     get() { //有人有讀取age時調用
+        //         return person.age
+        //     },
+        //     set(value) { //有人修改age時調用
+        //         console.log('有人修改了age屬性，我發現了，我要去更新界面！');
+        //         person.age = value
+        //     }
+        // })
+        // #endregion
+
+        // 模擬Vue3中實現響應式
+        // #region
+        const p = new Proxy(person, {
+            // 有人讀取p的某個屬性時調用
+            get(target,propName) {
+                console.log(`有人讀取了p身上的${propName}屬性`);
+                return Reflect.get(target, propName)
+            },
+            // 有人修改p的某個屬性，或給p追加某個屬性時調用
+            set(target,propName,value) {
+                console.log(`有人修改了p身上的${propName}屬性，我要去更新界面了！`);
+                Reflect.set(target,propName,value)
+            },
+            // 有人刪除p的某個屬性時調用
+            deleteProperty(target,propName) {
+                console.log(`有人刪除了p身上的${propName}屬性，我要去更新界面了！`);
+                return Reflect.deleteProperty(target,propName)
+            }
+        })
+        // #endregion
+        
+        let obj = {a:1,b:2}
+        // 通過Object.defineProperty去操作
+        // #region
+        // try {
+        //     Object.defineProperty(obj, 'c', {
+        //         get() {
+        //             return 3
+        //         }
+        //     })
+        //     Object.defineProperty(obj, 'c', {
+        //         get() {
+        //             return 4
+        //         }
+        //     })
+        // } catch (error) {
+        //     console.log(error);
+        // }
+        // #endregion
+
+        // 通過Reflect.defineProperty去操作
+        // #region
+        // const x1 = Reflect.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 3
+        //     }
+        // })
+        // console.log(x1);
+        // const x2 = Reflect.defineProperty(obj, 'c', {
+        //     get() {
+        //         return 4
+        //     }
+        // })
+        // console.log(x2);
+        // Reflect.defineProperty()
+        // #endregion
+        // console.log('@@@');
+    </script>
+</body>
+
+</html>
