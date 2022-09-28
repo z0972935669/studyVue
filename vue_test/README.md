@@ -1,5 +1,6 @@
 # 筆記
 
+## 要把外層的node_modules移除，在vue_test裡面安裝node_modules
 ## Vue腳手架隱藏了所有webpack相關的配置，若想查看具體的webpack配置，請執行
 ## vue inspect > output.js
 
