@@ -1,6 +1,9 @@
 # 筆記
 
 ## 要把外層的node_modules移除，在vue_test裡面安裝node_modules
+## 19_src_配置代理服務器
+## 1、要在js裡面安裝npm install express
+## 2、node server1(2)
 ## Vue腳手架隱藏了所有webpack相關的配置，若想查看具體的webpack配置，請執行
 ## vue inspect > output.js
 
