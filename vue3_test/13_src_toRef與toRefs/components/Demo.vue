@@ -42,9 +42,9 @@ export default {
       // age: toRef(person, 'age'),
       // salary: toRef(person.job.j1, 'salary'),
       // ref 
-      name: ref(person.name), // 這是讀取cake的字符串，打包讀取新的ref，不會去修改物件裡的值
-      age: ref(person.age),
-      salary: ref(person.job.j1.salary),
+      // name: ref(person.name), // 這是讀取cake的字符串，打包讀取新的ref，不會去修改物件裡的值
+      // age: ref(person.age),
+      // salary: ref(person.job.j1.salary),
       // toRefs
       // ...toRefs(person)
     }
