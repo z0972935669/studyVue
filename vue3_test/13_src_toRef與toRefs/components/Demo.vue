@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import { ref,reactive,toRef,toRefs } from "vue";
-export default {
-  name: "Demo",
+import { ref, reactive, toRef, toRefs } from 'vue'
 
+export default {
+  name: 'MyDemo',
   setup() {
     // 數據
     let person = reactive({
-      name: '張三',
+      name: 'Cake',
       age: 18,
       job: {
         j1: {
@@ -25,29 +25,29 @@ export default {
       }
     })
 
-    // const name1 = person.name
-    // console.log('%%%',name1);
+    const name1 = person.name
+    console.log('%%%', name1);
 
-    // const name2 = toRef(person,'name')
+    // const name2 = toRef(person, 'name')
     // console.log('###', name2);
 
-    // const x = toRefs(person)
-    // console.log('****',x);
+    const x = toRefs(person)
+    console.log('****', x);
 
     // 返回一個對象(常用)
     return {
-      // person,
+      person,
       // toRef
-      // name:toRef(person,'name'),
-      // age:toRef(person,'age'),
-      // salary:toRef(person.job.j1,'salary')
-      // ref
-      // name:ref(person.name),
-      // age:ref(person.age),
-      // salary:ref(person.job.j1.salary)
+      // name: toRef(person, 'name'),
+      // age: toRef(person, 'age'),
+      // salary: toRef(person.job.j1, 'salary'),
+      // ref 
+      name: ref(person.name), // 這是讀取cake的字符串，打包讀取新的ref，不會去修改物件裡的值
+      age: ref(person.age),
+      salary: ref(person.job.j1.salary),
       // toRefs
-      ...toRefs(person)
-    };
-  },
-};
+      // ...toRefs(person)
+    }
+  }
+}
 </script>
